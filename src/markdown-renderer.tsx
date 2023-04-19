@@ -166,7 +166,7 @@ export class Renderer {
         children = this.wrapChildren(children);
 
         const rule = this.renderRules[Tag.toString()];
-        console.log('renderToken', token);
+        // console.log('renderToken', token);
         const node = rule ? rule(attrs, token.content, children) : this.renderToken(Tag, attrs, children);
         return env.pushRendered(node);
     }
