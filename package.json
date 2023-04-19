@@ -11,6 +11,10 @@
         "clean": "rm -rf dist",
         "dev": "webpack serve"
     },
+    "files": [
+        "dist",
+        "!dist/demo"
+    ],
     "repository": {
         "type": "git",
         "url": "https://github.com/chandlerver5/markdown-it-react"
