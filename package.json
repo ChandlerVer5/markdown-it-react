@@ -1,51 +1,52 @@
 {
-  "name": "@thelukester92/markdown-it-react",
-  "version": "0.0.5",
-  "license": "MIT",
-  "author": "Luke Godfrey <lukeben92@gmail.com>",
-  "description": "A better way to render markdown in React.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "scripts": {
-    "build": "tsc",
-    "clean": "rm -rf dist",
-    "start": "webpack serve"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/thelukester92/markdown-it-react"
-  },
-  "dependencies": {
-    "markdown-it": "^13.0.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
-  "devDependencies": {
-    "@types/markdown-it": "^12.2.3",
-    "@types/react": "^18.0.27",
-    "@types/react-dom": "^18.0.10",
-    "@typescript-eslint/eslint-plugin": "^5.49.0",
-    "@typescript-eslint/parser": "^5.49.0",
-    "eslint": "^8.33.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "prettier": "^2.8.3",
-    "prettier-plugin-organize-imports": "^3.2.2",
-    "ts-loader": "^9.4.2",
-    "typescript": "^4.9.4",
-    "webpack": "^5.75.0",
-    "webpack-cli": "^5.0.1",
-    "webpack-dev-server": "^4.11.1"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+    "name": "@thelukester92/markdown-it-react",
+    "version": "0.0.5",
+    "license": "MIT",
+    "author": "Luke Godfrey <lukeben92@gmail.com>",
+    "description": "A better way to render markdown in React.",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "build": "tsc",
+        "clean": "rm -rf dist",
+        "dev": "webpack serve"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/thelukester92/markdown-it-react"
+    },
+    "dependencies": {
+        "markdown-it": "^13.0.1",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-dom-fragment": "^1.0.0"
+    },
+    "devDependencies": {
+        "@types/markdown-it": "^12.2.3",
+        "@types/react": "^18.0.27",
+        "@types/react-dom": "^18.0.10",
+        "@typescript-eslint/eslint-plugin": "^5.49.0",
+        "@typescript-eslint/parser": "^5.49.0",
+        "eslint": "^8.33.0",
+        "eslint-plugin-prettier": "^4.2.1",
+        "prettier": "^2.8.3",
+        "prettier-plugin-organize-imports": "^3.2.2",
+        "ts-loader": "^9.4.2",
+        "typescript": "^4.9.4",
+        "webpack": "^5.75.0",
+        "webpack-cli": "^5.0.1",
+        "webpack-dev-server": "^4.11.1"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
 }

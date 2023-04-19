@@ -1,7 +1,8 @@
 import Token from 'markdown-it/lib/token';
 import { ElementType, Fragment, ReactNode } from 'react';
+import DOMFragment from 'react-dom-fragment';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { ImbalancedTagsError, UnknownTokenTypeError } from './errors';
+import { ImbalancedTagsError } from './errors';
 import { cssStringToReactStyle } from './utils';
 
 export interface RendererOpts {
@@ -109,7 +110,7 @@ export class Renderer {
 
     /** Determine the element type based on `tags`, falling back to `token.tag`. */
     resolveElementType(token: Token): ElementType {
-        return this.tags[token.type] ?? (token.tag as ElementType);
+        return this.tags[token.type] ?? (token.type === 'fence' ? 'pre' : (token.tag as ElementType));
     }
 
     /** Render token attributes to a React-friendly record. */
@@ -142,7 +143,8 @@ export class Renderer {
         const token = tokens[idx];
         const Tag = this.resolveElementType(token);
         if (!Tag) {
-            throw new UnknownTokenTypeError(token);
+            // fix html:true, html_block
+            return env.pushRendered(<DOMFragment dangerouslySetInnerHTML={{ __html: token.content }}></DOMFragment>);
         } else if (token.nesting === 1) {
             const attrs = this.renderAttrs(token);
             return env.pushTag(Tag, attrs);
@@ -158,10 +160,14 @@ export class Renderer {
             attrs = this.renderAttrs(token);
             children = token.content ? [token.content] : [];
         }
+        if (token.type === 'fence') {
+            children = [<code>{token.content}</code>];
+        }
         children = this.wrapChildren(children);
 
-        const rule = this.renderRules[token.tag];
-        const node = rule ? rule(Tag, attrs, children) : this.renderToken(Tag, attrs, children);
+        const rule = this.renderRules[Tag.toString()];
+        console.log('renderToken', token);
+        const node = rule ? rule(Tag, attrs, token.content, children) : this.renderToken(Tag, attrs, children);
         return env.pushRendered(node);
     }
 
@@ -244,7 +250,12 @@ export interface RendererEnvStackEntry {
 export type TokenHandlerRule = (tokens: Token[], idx: number, env: RendererEnv) => ReactNode;
 
 /** The render rule for a tag popped off the stack, or for a self-closing tag. */
-export type RenderRule = (Tag: ElementType, attrs: Record<string, any> | undefined, children: ReactNode[]) => ReactNode;
+export type RenderRule = (
+    Tag: ElementType,
+    attrs: Record<string, any> | undefined,
+    content: string,
+    children: ReactNode[],
+) => ReactNode;
 
 const defaultRenderRules: typeof Renderer.prototype.renderRules = {};
 
