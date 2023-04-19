@@ -29,7 +29,7 @@ root.render(
         md={mdi}
         rendererOpts={{
             renderRules: {
-                pre: (_, attrs, content, children) => <em>{content}</em>,
+                pre: (attrs, content, children) => (console.log(attrs), (<em>{content}</em>)),
             },
         }}
     >

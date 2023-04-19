@@ -167,7 +167,7 @@ export class Renderer {
 
         const rule = this.renderRules[Tag.toString()];
         console.log('renderToken', token);
-        const node = rule ? rule(Tag, attrs, token.content, children) : this.renderToken(Tag, attrs, children);
+        const node = rule ? rule(attrs, token.content, children) : this.renderToken(Tag, attrs, children);
         return env.pushRendered(node);
     }
 
@@ -250,12 +250,7 @@ export interface RendererEnvStackEntry {
 export type TokenHandlerRule = (tokens: Token[], idx: number, env: RendererEnv) => ReactNode;
 
 /** The render rule for a tag popped off the stack, or for a self-closing tag. */
-export type RenderRule = (
-    Tag: ElementType,
-    attrs: Record<string, any> | undefined,
-    content: string,
-    children: ReactNode[],
-) => ReactNode;
+export type RenderRule = (attrs: Record<string, any> | undefined, content: string, children: ReactNode[]) => ReactNode;
 
 const defaultRenderRules: typeof Renderer.prototype.renderRules = {};
 
